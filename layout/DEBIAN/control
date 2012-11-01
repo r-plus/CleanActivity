@@ -1,0 +1,11 @@
+Package: jp.r-plus.cleanactivity
+Name: CleanActivity
+Depends: mobilesubstrate, applist, firmware (>= 6.0)
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Clean built-in activity icon
+Maintainer: r_plus
+Author: r_plus
+Section: Tweaks
+dev: rplus
+Icon: file:///Library/PreferenceLoader/Preferences/CleanActivity@2x.png
