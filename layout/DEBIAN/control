@@ -1,11 +1,16 @@
 Package: jp.r-plus.cleanactivity
 Name: CleanActivity
-Depends: mobilesubstrate, applist, firmware (>= 6.0)
+Depends: mobilesubstrate, applist, firmware (>= 6.0), preferenceloader
 Version: 1.0
 Architecture: iphoneos-arm
-Description: Clean built-in activity icon
-Maintainer: r_plus
-Author: r_plus
+Description: tidy up the iOS 6 share menu
+Author: r_plus <anasthasia.r+cleanactivity@gmail.com>
 Section: Tweaks
+Priority: optional
 dev: rplus
 Icon: file:///Library/PreferenceLoader/Preferences/CleanActivity@2x.png
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=cleanactivityDp
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=cleanactivityDp
+Sponsor: thebigboss.org <http://thebigboss.org>
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Tag: purpose::extension
