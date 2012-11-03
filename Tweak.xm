@@ -12,7 +12,7 @@ static BOOL cleanPrint;
 static BOOL cleanPasteboard;
 static BOOL cleanContact;
 static BOOL cleanCameraRoll;
-static BOOL isDisabledApplication;
+static BOOL isDisabledApplication = YES;
 
 %hook UIViewController
 static inline void ApplyCleanActivity(UIViewController *vc)
@@ -83,9 +83,13 @@ static void LoadSettings()
   cleanCameraRoll = cameraRollPref ? [cameraRollPref boolValue] : YES;
 
   NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
-  NSString *key = [@"CADisable-" stringByAppendingString:bundleIdentifier];
-  id disablePref = [dict objectForKey:key];
-  isDisabledApplication = disablePref ? [disablePref boolValue] : NO;
+  // If dylib load to daemon, bundleIdentifier = nil.
+  // stringByAppendingString:nil call will crash daemon.
+  if (bundleIdentifier) {
+    NSString *key = [@"CADisable-" stringByAppendingString:bundleIdentifier];
+    id disablePref = [dict objectForKey:key];
+    isDisabledApplication = disablePref ? [disablePref boolValue] : NO;
+  }
 }
 
 static void ChangeNotification(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo)
