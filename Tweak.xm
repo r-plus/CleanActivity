@@ -79,7 +79,7 @@ static void LoadSettings()
   cleanPasteboard = pasteboardPref ? [pasteboardPref boolValue] : NO;
   id contactPref = [dict objectForKey:@"Contact"];
   cleanContact = contactPref ? [contactPref boolValue] : YES;
-  id cameraRollPref = [dict objectForKey:@"Contact"];
+  id cameraRollPref = [dict objectForKey:@"CameraRoll"];
   cleanCameraRoll = cameraRollPref ? [cameraRollPref boolValue] : YES;
 
   NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
