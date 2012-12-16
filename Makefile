@@ -1,7 +1,5 @@
-# TARGET_CC = xcrun --sdk iphoneos clang
-# TARGET_CXX = xcrun --sdk iphoneos clang++
 ARCHS = armv7
-TARGET = iphone:latest:5.1
+TARGET = iphone:clang::6.0
 include theos/makefiles/common.mk
 
 TWEAK_NAME = CleanActivity

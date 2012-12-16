@@ -99,10 +99,8 @@ static void ChangeNotification(CFNotificationCenterRef center, void *observer, C
 
 %ctor
 {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-  CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, ChangeNotification, CFSTR("jp.r-plus.CleanActivity.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-  LoadSettings();
-
-  [pool drain];
+  @autoreleasepool {
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, ChangeNotification, CFSTR("jp.r-plus.CleanActivity.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+    LoadSettings();
+  }
 }
