@@ -14,46 +14,45 @@ static BOOL cleanContact;
 static BOOL cleanCameraRoll;
 static BOOL isDisabledApplication = YES;
 
-%hook UIViewController
-static inline void ApplyCleanActivity(UIViewController *vc)
+static inline NSArray *CleanActivities()
 {
-  if (cleanActivityIsEnabled && !isDisabledApplication && [vc isKindOfClass:[UIActivityViewController class]]) {
-    NSMutableArray *cleanArray = [NSMutableArray array];
-    if (cleanTwitter)
-      [cleanArray addObject:UIActivityTypePostToTwitter];
-    if (cleanFacebook)
-      [cleanArray addObject:UIActivityTypePostToFacebook];
-    if (cleanWeibo)
-      [cleanArray addObject:UIActivityTypePostToWeibo];
-    if (cleanMessage)
-      [cleanArray addObject:UIActivityTypeMessage];
-    if (cleanMail)
-      [cleanArray addObject:UIActivityTypeMail];
-    if (cleanPrint)
-      [cleanArray addObject:UIActivityTypePrint];
-    if (cleanPasteboard)
-      [cleanArray addObject:UIActivityTypeCopyToPasteboard];
-    if (cleanContact)
-      [cleanArray addObject:UIActivityTypeAssignToContact];
-    if (cleanCameraRoll)
-      [cleanArray addObject:UIActivityTypeSaveToCameraRoll];
-    ((UIActivityViewController *)vc).excludedActivityTypes = cleanArray;
-  }
+  NSMutableArray *cleanArray = [NSMutableArray array];
+  if (cleanTwitter)
+    [cleanArray addObject:UIActivityTypePostToTwitter];
+  if (cleanFacebook)
+    [cleanArray addObject:UIActivityTypePostToFacebook];
+  if (cleanWeibo)
+    [cleanArray addObject:UIActivityTypePostToWeibo];
+  if (cleanMessage)
+    [cleanArray addObject:UIActivityTypeMessage];
+  if (cleanMail)
+    [cleanArray addObject:UIActivityTypeMail];
+  if (cleanPrint)
+    [cleanArray addObject:UIActivityTypePrint];
+  if (cleanPasteboard)
+    [cleanArray addObject:UIActivityTypeCopyToPasteboard];
+  if (cleanContact)
+    [cleanArray addObject:UIActivityTypeAssignToContact];
+  if (cleanCameraRoll)
+    [cleanArray addObject:UIActivityTypeSaveToCameraRoll];
+  return cleanArray;
 }
 
-#define APPLY_CLEAN_ACTIVITY ApplyCleanActivity(vc)
-
-- (void)presentViewController:(UIViewController *)vc animated:(BOOL)flag completion:(void (^)(void))completion
+%hook UIActivityViewController
+- (NSArray *)excludedActivityTypes
 {
-  APPLY_CLEAN_ACTIVITY;
-  %orig;
-}
+  NSArray *originalExcludes = %orig;
+  if (!cleanActivityIsEnabled || isDisabledApplication)
+    return originalExcludes;
+  return CleanActivities();
 
-// Deprecated method
-- (void)presentModalViewController:(UIViewController *)vc animated:(BOOL)animated
-{
-  APPLY_CLEAN_ACTIVITY;
-  %orig;
+/*  if (originalExcludes) {*/
+/*    NSMutableSet *set = [NSMutableSet setWithArray:originalExcludes];*/
+/*    [set addObjectsFromArray:CleanActivities()];*/
+/*    return [set allObjects];*/
+/*  } else {*/
+/*    return CleanActivities();*/
+/*  }*/
 }
 %end
 
