@@ -1,7 +1,7 @@
 Package: jp.r-plus.cleanactivity
 Name: CleanActivity
 Depends: mobilesubstrate, applist, firmware (>= 6.0), preferenceloader
-Version: 1.0.3
+Version: 1.1
 Architecture: iphoneos-arm
 Description: tidy up the iOS 6 share menu
 Author: r_plus <anasthasia.r+cleanactivity@gmail.com>
