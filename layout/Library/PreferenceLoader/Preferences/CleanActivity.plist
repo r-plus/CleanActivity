@@ -57,7 +57,7 @@
         <key>cell</key>
         <string>PSGroupCell</string>
         <key>label</key>
-        <string>Activities</string>
+        <string>Disable Activities</string>
         <key>footerText</key>
         <string>Disable activity if enabled.</string>
       </dict>
