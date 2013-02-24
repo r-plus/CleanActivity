@@ -3,6 +3,8 @@
 #define PREF_PATH @"/var/mobile/Library/Preferences/jp.r-plus.CleanActivity.plist"
 
 static BOOL cleanActivityIsEnabled;
+static BOOL isDisabledApplication = YES;
+// UIKit
 static BOOL cleanTwitter;
 static BOOL cleanFacebook;
 static BOOL cleanWeibo;
@@ -12,7 +14,14 @@ static BOOL cleanPrint;
 static BOOL cleanPasteboard;
 static BOOL cleanContact;
 static BOOL cleanCameraRoll;
-static BOOL isDisabledApplication = YES;
+// Photo
+static BOOL cleanAlbumStream;
+static BOOL cleanYoutube;
+static BOOL cleanTodou;
+static BOOL cleanYouku;
+static BOOL cleanWallpaper;
+// AppStore and iTunes
+static BOOL cleanGift;
 
 static inline NSArray *CleanActivities()
 {
@@ -31,10 +40,24 @@ static inline NSArray *CleanActivities()
     [cleanArray addObject:UIActivityTypePrint];
   if (cleanPasteboard)
     [cleanArray addObject:UIActivityTypeCopyToPasteboard];
-  if (cleanContact)
+  if (cleanContact) {
     [cleanArray addObject:UIActivityTypeAssignToContact];
+    [cleanArray addObject:@"PLActivityTypeAssignToContact"];
+  }
   if (cleanCameraRoll)
     [cleanArray addObject:UIActivityTypeSaveToCameraRoll];
+  if (cleanAlbumStream)
+    [cleanArray addObject:@"PLActivityTypeAlbumStream"];
+  if (cleanYoutube)
+    [cleanArray addObject:@"PLActivityTypePublishToYouTube"];
+  if (cleanTodou)
+    [cleanArray addObject:@"PLActivityTypePublishToTudou"];
+  if (cleanYouku)
+    [cleanArray addObject:@"PLActivityTypePublishToYouku"];
+  if (cleanWallpaper)
+    [cleanArray addObject:@"PLActivityTypeUseAsWallpaper"];
+  if (cleanGift)
+    [cleanArray addObject:@"com.apple.AppStore.gift"];
   return cleanArray;
 }
 
@@ -62,6 +85,7 @@ static void LoadSettings()
 
   id enablePref = [dict objectForKey:@"Enabled"];
   cleanActivityIsEnabled = enablePref ? [enablePref boolValue] : YES;
+  // UIKit
   id twitterPref = [dict objectForKey:@"Twitter"];
   cleanTwitter = twitterPref ? [twitterPref boolValue] : NO;
   id facebookPref = [dict objectForKey:@"Facebook"];
@@ -80,6 +104,20 @@ static void LoadSettings()
   cleanContact = contactPref ? [contactPref boolValue] : YES;
   id cameraRollPref = [dict objectForKey:@"CameraRoll"];
   cleanCameraRoll = cameraRollPref ? [cameraRollPref boolValue] : YES;
+  // Photo
+  id albumStreamPref = [dict objectForKey:@"AlbumStream"];
+  cleanAlbumStream = albumStreamPref ? [albumStreamPref boolValue] : NO;
+  id youtubePref = [dict objectForKey:@"Youtube"];
+  cleanYoutube = youtubePref ? [youtubePref boolValue] : NO;
+  id todouPref = [dict objectForKey:@"Todou"];
+  cleanTodou = todouPref ? [todouPref boolValue] : YES;
+  id youkuPref = [dict objectForKey:@"Youku"];
+  cleanYouku = youkuPref ? [youkuPref boolValue] : YES;
+  id wallpaperPref = [dict objectForKey:@"Wallpaper"];
+  cleanWallpaper = wallpaperPref ? [wallpaperPref boolValue] : NO;
+  // AppStore and iTunes
+  id giftPref = [dict objectForKey:@"Gift"];
+  cleanGift = giftPref ? [giftPref boolValue] : NO;
 
   NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
   // If dylib load to daemon, bundleIdentifier = nil.
