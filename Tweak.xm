@@ -22,7 +22,7 @@ static BOOL cleanYouku;
 static BOOL cleanWallpaper;
 // AppStore and iTunes
 static BOOL cleanGift;
-// Mobilesafari
+// MobileSafari
 static BOOL cleanBookmark;
 static BOOL cleanHomeScreen;
 static BOOL cleanReadingList;
@@ -144,7 +144,6 @@ static void LoadSettings()
   cleanHomeScreen = homeScreenPref ? [homeScreenPref boolValue] : NO;
   id readingListPref = [dict objectForKey:@"SafariReadingList"];
   cleanReadingList = readingListPref ? [readingListPref boolValue] : NO;
-
 
   NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
   // If dylib load to daemon, bundleIdentifier = nil.
