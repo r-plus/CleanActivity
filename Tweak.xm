@@ -79,6 +79,15 @@ static inline NSArray *CleanActivities()
 }
 %end
 
+/*%hook UIActivity*/
+/*- (id)init*/
+/*{*/
+/*    id activity = %orig;*/
+/*    NSLog(@"%@", [activity activityType]);*/
+/*    return activity;*/
+/*}*/
+/*%end*/
+
 static void LoadSettings()
 {
   NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:PREF_PATH];
