@@ -22,6 +22,10 @@ static BOOL cleanYouku;
 static BOOL cleanWallpaper;
 // AppStore and iTunes
 static BOOL cleanGift;
+// Mobilesafari
+static BOOL cleanBookmark;
+static BOOL cleanHomeScreen;
+static BOOL cleanReadingList;
 
 static inline NSArray *CleanActivities()
 {
@@ -58,6 +62,12 @@ static inline NSArray *CleanActivities()
     [cleanArray addObject:@"PLActivityTypeUseAsWallpaper"];
   if (cleanGift)
     [cleanArray addObject:@"com.apple.AppStore.gift"];
+  if (cleanBookmark)
+    [cleanArray addObject:@"com.apple.mobilesafari.activity.addBookmark"];
+  if (cleanHomeScreen)
+    [cleanArray addObject:@"com.apple.mobilesafari.activity.addToHomeScreen"];
+  if (cleanReadingList)
+    [cleanArray addObject:@"com.apple.mobilesafari.activity.addToReadingList"];
   return cleanArray;
 }
 
@@ -127,6 +137,14 @@ static void LoadSettings()
   // AppStore and iTunes
   id giftPref = [dict objectForKey:@"Gift"];
   cleanGift = giftPref ? [giftPref boolValue] : NO;
+  // MobileSafari
+  id bookmarkPref = [dict objectForKey:@"SafariBookmark"];
+  cleanBookmark = bookmarkPref ? [bookmarkPref boolValue] : NO;
+  id homeScreenPref = [dict objectForKey:@"SafariHomeScreen"];
+  cleanHomeScreen = homeScreenPref ? [homeScreenPref boolValue] : NO;
+  id readingListPref = [dict objectForKey:@"SafariReadingList"];
+  cleanReadingList = readingListPref ? [readingListPref boolValue] : NO;
+
 
   NSString *bundleIdentifier = [NSBundle mainBundle].bundleIdentifier;
   // If dylib load to daemon, bundleIdentifier = nil.
